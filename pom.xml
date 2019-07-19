@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.sc</groupId>
-  <artifactId>RabbitMQ-RedPack</artifactId>
+  <artifactId>redPack</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
@@ -184,7 +184,7 @@
 		</dependency>
 	
   </dependencies>
-  <build>
+<!--  <build>
     <plugins>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
@@ -196,5 +196,47 @@
 			</configuration>
 		</plugin>
 	</plugins>
-  </build>
+  </build>-->
+
+
+	<build>
+		<finalName>redPack</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<!-- 是否替换资源中的属性-->
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<url>http://localhost:8086/manager/text</url>
+					<server>tomcat7</server>
+					<path>/${project.artifactId}</path>
+					<port>8086</port>
+					<update>true</update>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

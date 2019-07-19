@@ -2,6 +2,7 @@ package com.sc.service.impl;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public class GrabRedPackServiceImpl implements GrabRedPackService{
 	
 	private static final int redpackId = 1;
 	private static final String amount = "10.00";
-	
+
 	@Autowired
 	private RedpackService redpackService;
 	@Autowired
@@ -30,6 +31,7 @@ public class GrabRedPackServiceImpl implements GrabRedPackService{
 		try {
 			//1.查询红包剩余个数是否大于0
 			int remain = redpackService.getRedPackRemain(redpackId);
+
 			if(remain > 0) {
 				//2.扣减红包个数
 				int result = redpackService.deducteRedPack(redpackId);
