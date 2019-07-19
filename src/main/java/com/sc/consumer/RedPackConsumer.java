@@ -25,11 +25,9 @@ public class RedPackConsumer implements ChannelAwareMessageListener{
 		try {
 			String userId = new String(message.getBody(),"UTF-8");
 			log.info("监听到抢红包用户："+userId);
-			// 增加同步：防止抢的红包大于remain  haoyx
-			synchronized (this){
-				//执行抢红包业务
-				grabRedPackService.grabRedPack(userId);
-			}
+
+			//执行抢红包业务
+            grabRedPackService.grabRedPack(userId);
 
 			//手动确认
 			channel.basicAck(tag, false);

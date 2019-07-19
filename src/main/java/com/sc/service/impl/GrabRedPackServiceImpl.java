@@ -28,24 +28,30 @@ public class GrabRedPackServiceImpl implements GrabRedPackService{
 	private UserRedpackService userRedpackService;
 
 	public void grabRedPack(String userId) {
-		try {
-			//1.查询红包剩余个数是否大于0
-			int remain = redpackService.getRedPackRemain(redpackId);
 
-			if(remain > 0) {
-				//2.扣减红包个数
-				int result = redpackService.deducteRedPack(redpackId);
-				if(result > 0) {
-					//3.新增用户抢红包记录
-					UserRedpack userRedpack = new UserRedpack();
-					userRedpack.setUserid(userId);
-					userRedpack.setRedpackid(redpackId);
-					userRedpack.setGrabdate(new Date());
-					userRedpack.setAmount(new BigDecimal(amount));
-					userRedpackService.insertGradReadPack(userRedpack);
-				}
-				
-			}
+		try {
+            // 增加同步：防止抢的红包大于remain  haoyx
+            synchronized (this){
+                //1.查询红包剩余个数是否大于0
+                int remain = redpackService.getRedPackRemain(redpackId);
+                if(remain > 0) {
+                    //2.扣减红包个数
+                    int result = redpackService.deducteRedPack(redpackId);
+                    if(result > 0) {
+                        //3.新增用户抢红包记录
+                        UserRedpack userRedpack = new UserRedpack();
+                        userRedpack.setUserid(userId);
+                        userRedpack.setRedpackid(redpackId);
+                        userRedpack.setGrabdate(new Date());
+                        userRedpack.setAmount(new BigDecimal(amount));
+                        userRedpackService.insertGradReadPack(userRedpack);
+                    }
+
+                }
+            }
+
+
+
 			//异步通知用户抢红包成功
 		} catch (Exception e) {
 			log.error("处理抢单异常："+e.getMessage());
