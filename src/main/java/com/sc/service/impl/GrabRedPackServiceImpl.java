@@ -27,7 +27,8 @@ public class GrabRedPackServiceImpl implements GrabRedPackService{
 	@Autowired
 	private UserRedpackService userRedpackService;
 
-	public void grabRedPack(String userId) {
+	@Override
+    public void grabRedPack(String userId) {
 
 		try {
             // 增加同步：防止抢的红包大于remain  haoyx

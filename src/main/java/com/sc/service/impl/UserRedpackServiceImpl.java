@@ -16,6 +16,7 @@ public class UserRedpackServiceImpl implements UserRedpackService{
 	/**
 	 * 插入用户抢红包记录
 	 */
+	@Override
 	public int insertGradReadPack(UserRedpack userRedpack) {
 		return userRedpackMapper.insertSelective(userRedpack);
 	}

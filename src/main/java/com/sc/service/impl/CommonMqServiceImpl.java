@@ -20,6 +20,7 @@ public class CommonMqServiceImpl implements CommonMqService{
 	/**
 	 * 发送消息
 	 */
+	@Override
 	public void sendGradRedPack(String userid) {
 		try {
 			rabbitTemplate.convertAndSend("info", userid);

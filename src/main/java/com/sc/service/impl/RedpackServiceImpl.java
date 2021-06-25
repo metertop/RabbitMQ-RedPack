@@ -17,6 +17,7 @@ public class RedpackServiceImpl implements RedpackService{
 	 * @param id
 	 * @return
 	 */
+	@Override
 	public int getRedPackRemain(Integer id) {
 		return redpackMapper.selectRemainByPrimaryKey(id);
 	}
@@ -24,6 +25,7 @@ public class RedpackServiceImpl implements RedpackService{
 	/**
 	 * 扣减红包剩余个数
 	 */
+	@Override
 	public int deducteRedPack(Integer id) {
 		return redpackMapper.updateRemainRedPack(id);
 	}
